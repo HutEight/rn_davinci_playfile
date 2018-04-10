@@ -90,15 +90,16 @@ int main(int argc, char **argv)
   ros::init(argc, argv, "playfile_writer");
   ros::NodeHandle nh;
 
-  psm_controller psm1(1, nh);
-  psm_controller psm2(2, nh);
+  psm_controller psm1(1, nh, true);
+  psm_controller psm2(2, nh, true);
 
-  ROS_INFO("Ready to start capturing- enter '1' to begin.");
-  char ans = '0';
-  while (ans != '1' && ros::ok())
-  {
-    std::cin >> ans;
-  }
+//  ROS_INFO("Ready to start capturing- enter '1' to begin.");
+//  char ans = '0';
+//  while (ans != '1' && ros::ok())
+//  {
+//    std::cin >> ans;
+//    ROS_INFO("Record");
+//  }
 
   sensor_msgs::JointState pose_1, pose_2;
   std::vector<double> pose_both;
