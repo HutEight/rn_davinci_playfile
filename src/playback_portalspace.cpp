@@ -75,16 +75,16 @@ int main(int argc, char **argv)
     des_gripper_affine.linear() = R;
     des_gripper_affine.translation() = tip_origin;
 
-    // if (kin.ik_solve(des_gripper_affine) <= 0)
-		if (kin.ik_solve_refined(des_gripper_affine) <= 0)
+    // if (kin.ik_solve_refined(des_gripper_affine) <= 0)
+		if (kin.ik_solve_frozen_refined(des_gripper_affine) <= 0)
     {
       ROS_ERROR("Line %d does not have a kinematic solution for PSM1!", i);
       // TODO(tes77) Abort pending resolution of kinematics issue.
       return 0;
     }
 
-    // davinci_kinematics::Vectorq7x1 solution = kin.get_soln();
-		davinci_kinematics::Vectorq7x1 solution = kin.get_soln_refined();
+    // davinci_kinematics::Vectorq7x1 solution = kin.get_soln_refined();
+		davinci_kinematics::Vectorq7x1 solution = kin.get_soln_frozon_ik_refined();
     for (int j = 0; j < 6; j++)
     {
       data[i][j] = solution[j];
@@ -102,13 +102,15 @@ int main(int argc, char **argv)
     des_gripper_affine.linear() = R;
     des_gripper_affine.translation() = tip_origin;
 
-    if (kin.ik_solve_refined(des_gripper_affine) <= 0)
+    // if (kin.ik_solve_refined(des_gripper_affine) <= 0)
+     if (kin.ik_solve_frozen_refined(des_gripper_affine) <= 0)
     {
       ROS_ERROR("Line %d does not have a kinematic solution for PSM2!", i);
       return 0;
     }
 
-    solution = kin.get_soln();
+    // solution = kin.get_soln_refined();
+    solution = kin.get_soln_frozon_ik_refined();
     for (int j = 0; j < 7; j++)
     {
       data[i][j+7] = solution[j];
