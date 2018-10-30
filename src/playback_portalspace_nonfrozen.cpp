@@ -55,7 +55,7 @@ int main(int argc, char **argv)
   kin.resetDhOffsetsMaps();
   kin.loadDHyamlfiles("psm1_dh","psm1_dh");
   kin.loadDHyamlfiles("psm2_dh","psm2_dh");
-  // kin.loadDHyamlfiles("psm_generic","psm_generic");
+  kin.loadDHyamlfiles("psm_generic","psm_generic");
 
 
 
@@ -87,17 +87,17 @@ int main(int argc, char **argv)
     // if (kin.ik_solve_refined(des_gripper_affine) <= 0)
     if (kin.ik_solve_refined(des_gripper_affine, "psm1_dh") <= 0)
 		// if (kin.ik_solve_frozen_refined(des_gripper_affine, "psm1_dh") <= 0)
-    // if (kin.ik_solve_frozen_refined(des_gripper_affine, "psm_generic") <= 0)
+    //if (kin.ik_solve_refined(des_gripper_affine, "psm_generic") <= 0)
     {
       ROS_ERROR("Line %d does not have a kinematic solution for PSM1!", i);
       // TODO(tes77) Abort pending resolution of kinematics issue.
       return 0;
     }
 
-    // davinci_kinematics::Vectorq7x1 solution = kin.get_soln_refined();
+    //davinci_kinematics::Vectorq7x1 solution = kin.get_soln_refined();
     davinci_kinematics::Vectorq7x1 solution = kin.get_soln_refined("psm1_dh"); 
 		// davinci_kinematics::Vectorq7x1 solution = kin.get_soln_frozon_ik_refined("psm1_dh");
-    // davinci_kinematics::Vectorq7x1 solution = kin.get_soln_frozon_ik_refined("psm_generic"); 
+    //davinci_kinematics::Vectorq7x1 solution = kin.get_soln_ik_refined("psm_generic"); 
     for (int j = 0; j < 6; j++)
     {
       data[i][j] = solution[j];
@@ -119,16 +119,16 @@ int main(int argc, char **argv)
     des_gripper_affine.translation() = tip_origin;
 
     // if (kin.ik_solve_refined(des_gripper_affine) <= 0)
-    if (kin.ik_solve_refined(des_gripper_affine, "psm2_dh") <= 0)
-    // if (kin.ik_solve_frozen_refined(des_gripper_affine, "psm2_dh") <= 0)
+    // if (kin.ik_solve_refined(des_gripper_affine, "psm2_dh") <= 0)
+    if (kin.ik_solve_frozen_refined(des_gripper_affine, "psm2_dh") <= 0)
     {
       ROS_ERROR("Line %d does not have a kinematic solution for PSM2!", i);
       return 0;
     }
 
     // solution = kin.get_soln_refined();
-    solution = kin.get_soln_refined("psm2_dh"); 
-    // solution = kin.get_soln_frozon_ik_refined("psm2_dh");
+    // solution = kin.get_soln_refined("psm2_dh"); 
+    solution = kin.get_soln_frozon_ik_refined("psm2_dh");
     for (int j = 0; j < 7; j++)
     {
       data[i][j+7] = solution[j];

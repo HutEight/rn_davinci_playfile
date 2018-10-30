@@ -32,12 +32,14 @@ add_library(playfile_format_cartesian src/playfile_format_cartesian.cpp)
 
 add_executable(playback_jointspace src/playback_jointspace.cpp)
 add_executable(playback_portalspace src/playback_portalspace.cpp)
+add_executable(playback_portalspace_wrist src/playback_portalspace_nonfrozen.cpp)
 
 add_executable(record_jointspace src/record_jointspace.cpp)
 
 
 target_link_libraries(playback_jointspace playfile_format_joint ${catkin_LIBRARIES} ${Boost_LIBRARIES})
 target_link_libraries(playback_portalspace playfile_format_cartesian ${catkin_LIBRARIES} ${Boost_LIBRARIES})
+target_link_libraries(playback_portalspace_wrist playfile_format_cartesian ${catkin_LIBRARIES} ${Boost_LIBRARIES})
 
 target_link_libraries(record_jointspace
 	playfile_format_joint
