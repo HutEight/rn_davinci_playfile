@@ -25,7 +25,7 @@
 
 #include <ros/ros.h>
 
-#include <cwru_davinci_control/psm_controller.h>
+#include <cwru_davinci/uv_control/psm_interface.h>
 #include <cwru_davinci_playfile/playfile_format_joint.h>
 
 int main(int argc, char **argv)

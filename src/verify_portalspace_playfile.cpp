@@ -4,7 +4,7 @@
 #include <sensor_msgs/JointState.h>
 
 #include <cwru_davinci_kinematics/davinci_inv_kinematics.h>
-#include <cwru_davinci_control/psm_controller.h>
+#include <cwru_davinci/uv_control/psm_interface.h>
 #include <cwru_davinci_playfile/playfile_format_cartesian.h>
 
 int main(int argc, char **argv)
@@ -83,6 +83,8 @@ int main(int argc, char **argv)
       data[i][j] = solution[j];
     }
 
+		// TODO delete
+		std::cout << "PSM1 solution: " << solution.transpose() << std::endl;
 
 
 
@@ -113,6 +115,10 @@ int main(int argc, char **argv)
     {
       data[i][j+7] = solution[j];
     }
+
+				// TODO delete
+		std::cout << "PSM2 solution: " << solution.transpose() << std::endl;
+
   }
 
 

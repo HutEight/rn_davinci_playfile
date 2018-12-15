@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 2.8.3)
 project(cwru_davinci_playfile)
 
-find_package(catkin REQUIRED COMPONENTS roscpp roslib roslint cwru_davinci_kinematics cwru_davinci_control)
+find_package(catkin REQUIRED COMPONENTS roscpp roslib roslint cwru_davinci_kinematics uv_control)
 find_package(Boost REQUIRED COMPONENTS system thread)
 
 include_directories(include ${catkin_INCLUDE_DIRS})
@@ -9,7 +9,7 @@ include_directories(include ${catkin_INCLUDE_DIRS})
 catkin_package(
 	INCLUDE_DIRS include ${catkin_INCLUDE_DIRS}
 	LIBRARIES playfile_format_joint playfile_format_cartesian actionlib 
-	CATKIN_DEPENDS roscpp roslib roslint
+	CATKIN_DEPENDS roscpp roslib roslint uv_control
 )
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
@@ -34,9 +34,9 @@ add_executable(playback_jointspace src/playback_jointspace.cpp)
 add_executable(playback_portalspace src/playback_portalspace.cpp)
 add_executable(playback_portalspace_wrist src/playback_portalspace_nonfrozen.cpp)
 
-add_executable(record_jointspace src/record_jointspace.cpp)
+#add_executable(record_jointspace src/record_jointspace.cpp)
 
-add_executable(verify_portalspace_playfile src/verify_portalspace_playfile.cpp)
+#add_executable(verify_portalspace_playfile src/verify_portalspace_playfile.cpp)
 
 
 
@@ -44,12 +44,12 @@ target_link_libraries(playback_jointspace playfile_format_joint ${catkin_LIBRARI
 target_link_libraries(playback_portalspace playfile_format_cartesian ${catkin_LIBRARIES} ${Boost_LIBRARIES})
 target_link_libraries(playback_portalspace_wrist playfile_format_cartesian ${catkin_LIBRARIES} ${Boost_LIBRARIES})
 
-target_link_libraries(verify_portalspace_playfile playfile_format_cartesian ${catkin_LIBRARIES} ${Boost_LIBRARIES})
+#target_link_libraries(verify_portalspace_playfile playfile_format_cartesian ${catkin_LIBRARIES} ${Boost_LIBRARIES})
 
-target_link_libraries(record_jointspace
-	playfile_format_joint
-	${catkin_LIBRARIES}
-)
+#target_link_libraries(record_jointspace
+#	playfile_format_joint
+#	${catkin_LIBRARIES}
+#)
 
 
 # tests
